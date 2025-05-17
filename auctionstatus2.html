@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vintage Painting Auction</title>
+</head>
+<body>
+  <!-- Button to trigger the popup -->
+  <button onclick="openPaintingStatus()" style="padding: 10px 20px; background: #2196F3; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px;">
+    Vintage Painting Status 
+  </button>
+
+  <!-- Painting Popup Window -->
+  <div id="paintingStatusPopup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 80%; max-width: 900px; background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 1000; padding: 20px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 20px;">
+      <h2 style="margin: 0; color: #333;">Auction Status: <span id="paintingName">19th Century Oil Painting</span></h2>
+      <button onclick="closePaintingStatus()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #777;">✕</button>
+    </div>
+    
+    <div style="display: flex; gap: 20px;">
+      <!-- Left Side: Painting Photo + Auction Details -->
+      <div style="flex: 1; display: flex; flex-direction: column; gap: 20px;">
+        <!-- Painting Photo -->
+        <div style="border: 1px solid #eee; border-radius: 8px; overflow: hidden; text-align: center;">
+          <img 
+            src="https://www.regentantiques.com/product_images/A1938-Vintage-Oil-Painting-Doges--Palace-&-Piazza-San-Marco-Venice-80x110cm-mid-20th-C-1.jpg" 
+            alt="Vintage Oil Painting" 
+            style="width: 100%; max-height: 250px; object-fit: contain;"
+          >
+        </div>
+        
+        <!-- Auction Details -->
+        <div>
+          <div style="margin-bottom: 15px;">
+            <h3 style="margin: 0 0 5px 0; color: #555;">Current Bid</h3>
+            <p id="paintingCurrentBid" style="font-size: 24px; font-weight: bold; color: #2196F3; margin: 0;">$48,750</p>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <h3 style="margin: 0 0 5px 0; color: #555;">Time Remaining</h3>
+            <p id="paintingCountdown" style="font-size: 24px; font-weight: bold; color: #FF5722; margin: 0;">03:45:22</p>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <h3 style="margin: 0 0 5px 0; color: #555;">Active Bidders</h3>
+            <p id="paintingActiveBidders" style="font-size: 18px; margin: 0;">12 users</p>
+          </div>
+          
+          <div style="margin-bottom: 15px;">
+            <h3 style="margin: 0 0 5px 0; color: #555;">Last Bidder</h3>
+            <p id="paintingLastBidder" style="font-size: 18px; margin: 0;">ArtCollector_88</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Side: Bid Surge Graph -->
+      <div style="flex: 1; border-left: 1px solid #eee; padding-left: 20px;">
+        <h3 style="margin: 0 0 15px 0; color: #555;">Bid History (Last 5 Bids)</h3>
+        <canvas id="paintingBidGraph" width="350" height="250" style="background: #f9f9f9; border-radius: 4px;"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 999;"></div>
+
+  <script>
+    // Open/Close Popup
+    function openPaintingStatus() {
+      document.getElementById('paintingStatusPopup').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+      updatePaintingBidGraph();
+      startPaintingCountdown();
+    }
+
+    function closePaintingStatus() {
+      document.getElementById('paintingStatusPopup').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    // Simulate Real-Time Bid Updates (Demo)
+    function simulatePaintingBidUpdate() {
+      const bids = [40000, 42000, 45000, 47000, 48750];
+      const bidders = ['ArtLover', 'GalleryMaster', 'VintageCollector','AntiqueDealer', 'HistoryBuff'];
+      const currentBid = bids[Math.floor(Math.random() * bids.length)];
+      const lastBidder = bidders[Math.floor(Math.random() * bidders.length)];
+      
+      document.getElementById('paintingCurrentBid').textContent = `$${currentBid.toLocaleString()}`;
+      document.getElementById('paintingLastBidder').textContent = lastBidder;
+      document.getElementById('paintingActiveBidders').textContent = `${Math.floor(Math.random() * 15) + 8} users`;
+      
+      updatePaintingBidGraph();
+    }
+
+    // Countdown Timer (Demo)
+    function startPaintingCountdown() {
+      let time = 3 * 60 * 60 + 45 * 60 + 22; // 3h 45m 22s
+      const countdownElement = document.getElementById('paintingCountdown');
+      
+      const timer = setInterval(() => {
+        const hours = Math.floor(time / 3600).toString().padStart(2, '0');
+        const minutes = Math.floor((time % 3600) / 60).toString().padStart(2, '0');
+        const seconds = (time % 60).toString().padStart(2, '0');
+        
+        countdownElement.textContent = `${hours}:${minutes}:${seconds}`;
+        time--;
+        
+        if (time < 0) {
+          clearInterval(timer);
+          countdownElement.textContent = "Auction Ended";
+          countdownElement.style.color = "#F44336";
+        }
+      }, 1000);
+    }
+
+    // Bid Surge Graph (Chart.js)
+    function updatePaintingBidGraph() {
+      const ctx = document.getElementById('paintingBidGraph').getContext('2d');
+      
+      if (window.paintingBidChart) {
+        window.paintingBidChart.destroy();
+      }
+      
+      const bidHistory = {
+        labels: ['5m ago', '4m ago', '3m ago', '2m ago', '1m ago'],
+        data: [40000, 42500, 45000, 46500, 48750]
+      };
+      
+      window.paintingBidChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: bidHistory.labels,
+          datasets: [{
+            label: 'Bid Amount ($)',
+            data: bidHistory.data,
+            borderColor: '#2196F3',
+            backgroundColor: 'rgba(33, 150, 243, 0.1)',
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            y: { 
+              beginAtZero: false,
+              ticks: {
+                callback: (value) => `$${value.toLocaleString()}`
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Simulate live updates every 3 seconds
+    setInterval(simulatePaintingBidUpdate, 3000);
+  </script>
+  
+  <!-- Include Chart.js for the graph -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>

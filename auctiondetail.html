@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Auction Status | Premium Art Auctions</title>
+  <style>
+     /* Main Styles */
+     body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #333;
+        line-height: 1.6;
+    }
+    
+    .auction-container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 30px;
+        background: white;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        border-radius: 8px;
+    }
+    
+    .auction-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eaeaea;
+        padding-bottom: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .auction-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin: 0;
+    }
+    
+    .auction-id {
+        color: #7f8c8d;
+        font-size: 14px;
+    }
+    
+    /* Status Indicator */
+    .status-indicator {
+        display: inline-flex;
+        align-items: center;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    
+    .status-active {
+        background-color: #e3f7e8;
+        color: #27ae60;
+    }
+    
+    .status-ended {
+        background-color: #feeaea;
+        color: #e74c3c;
+    }
+    
+    /* Auction Info Grid */
+    .auction-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .auction-info-card {
+        background: #f8f9fa;
+        border-radius: 6px;
+        padding: 20px;
+    }
+    
+    .info-card-title {
+        font-size: 16px;
+        color: #7f8c8d;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+    
+    .current-bid {
+        font-size: 32px;
+        font-weight: 700;
+        color: #2c3e50;
+        margin: 10px 0;
+    }
+    
+    .bid-increment {
+        color: #7f8c8d;
+        font-size: 14px;
+    }
+    
+    /* Countdown Timer */
+    .countdown-container {
+        background: #2c3e50;
+        color: white;
+        padding: 20px;
+        border-radius: 6px;
+        text-align: center;
+    }
+    
+    .countdown-title {
+        margin-top: 0;
+        font-size: 18px;
+        font-weight: 500;
+    }
+    
+    .countdown-timer {
+        font-size: 32px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin: 15px 0;
+    }
+    
+    /* Bid History */
+    .bid-history {
+        margin-top: 40px;
+    }
+    
+    .section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #2c3e50;
+    }
+    
+    .bid-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    
+    .bid-table th {
+        text-align: left;
+        padding: 12px 15px;
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #7f8c8d;
+    }
+    
+    .bid-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eaeaea;
+    }
+    
+    .bid-amount {
+        font-weight: 600;
+        color: #2c3e50;
+    }
+    
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .btn {
+        padding: 12px 24px;
+        border-radius: 4px;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-primary {
+        background-color: #3498db;
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2980b9;
+    }
+    
+    .btn-outline {
+        background: transparent;
+        border: 1px solid #3498db;
+        color: #3498db;
+    }
+    
+    .btn-outline:hover {
+        background: #f0f7fc;
+    }
+    
+    /* Item Preview */
+    .item-preview {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    
+    .item-image {
+        width: 300px;
+        height: 200px;
+        background-color: #eee;
+        border-radius: 4px;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    
+    .item-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .item-details {
+        flex-grow: 1;
+    }
+    
+    .item-title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+    
+    .item-description {
+        color: #7f8c8d;
+        margin-bottom: 15px;
+    }
+    
+    .item-meta {
+        display: flex;
+        gap: 20px;
+    }
+    
+    .meta-item {
+        font-size: 14px;
+    }
+    
+    .meta-label {
+        color: #7f8c8d;
+        display: block;
+        margin-bottom: 3px;
+    }
+    
+    .meta-value {
+        font-weight: 500;
+        color: #2c3e50;
+    }
+    /* [Same CSS you provided] */
+    /* Omitted here for brevity — keep your original <style> block as-is */
+  </style>
+</head>
+<body>
+  <div class="auction-container">
+    <div class="auction-header">
+      <div>
+        <h1 class="auction-title">Vintage Oil Painting Auction</h1>
+        <div class="auction-id">Auction ID: ART-2023-0456</div>
+      </div>
+      <div class="status-indicator status-active">ACTIVE</div>
+    </div>
+
+    <div class="item-preview">
+      <div class="item-image">
+        <img src="https://www.regentantiques.com/product_images/A1938-Vintage-Oil-Painting-Doges--Palace-&-Piazza-San-Marco-Venice-80x110cm-mid-20th-C-1.jpg" alt="Vintage Oil Painting" />
+      </div>
+      <div class="item-details">
+        <h2 class="item-title">"Countryside at Dusk" (Circa 1915)</h2>
+        <p class="item-description">A magnificent vintage oil painting showcasing early 20th century European landscape art with rich impasto technique and warm, earthy palette.</p>
+        <div class="item-meta">
+          <div class="meta-item">
+            <span class="meta-label">Artist</span>
+            <span class="meta-value">French Impressionist School</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Dimensions</span>
+            <span class="meta-value">24" × 36" (61cm × 91cm)</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Condition</span>
+            <span class="meta-value">Excellent, restored</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="auction-grid">
+      <div class="auction-info-card">
+        <h3 class="info-card-title">Current Bid</h3>
+        <div class="current-bid">$1,850</div>
+        <div class="bid-increment">Minimum next bid: $1,900</div>
+      </div>
+
+      <div class="auction-info-card">
+        <h3 class="info-card-title">Auction Details</h3>
+        <div class="meta-item" style="margin-bottom: 12px;">
+          <span class="meta-label">Start Time</span>
+          <span class="meta-value">June 15, 2025 10:00 AM EST</span>
+        </div>
+        <div class="meta-item" style="margin-bottom: 12px;">
+          <span class="meta-label">End Time</span>
+          <span class="meta-value">June 17, 2025 3:00 PM EST</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Bids</span>
+          <span class="meta-value">12</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="countdown-container">
+      <h3 class="countdown-title">Auction Ends In</h3>
+      <div class="countdown-timer" id="countdown">--:--:--:--</div>
+      <div>Days : Hours : Minutes : Seconds</div>
+    </div>
+
+    <div class="bid-history">
+      <h3 class="section-title">Bid History</h3>
+      <table class="bid-table">
+        <thead>
+          <tr>
+            <th>Bidder</th>
+            <th>Amount</th>
+            <th>Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Hemant</td>
+            <td class="bid-amount">$1,850</td>
+            <td>Today, 14:32:45</td>
+            <td>Winning</td>
+          </tr>
+          <tr>
+            <td>Krissh_pathak</td>
+            <td class="bid-amount">$1,800</td>
+            <td>Today, 13:15:22</td>
+            <td>Outbid</td>
+          </tr>
+          <tr>
+            <td>YashDubal</td>
+            <td class="bid-amount">$1,750</td>
+            <td>Today, 11:45:03</td>
+            <td>Outbid</td>
+          </tr>
+          <tr>
+            <td>Amit_singh</td>
+            <td class="bid-amount">$1,700</td>
+            <td>Yesterday, 17:32:18</td>
+            <td>Outbid</td>
+          </tr>
+          <tr>
+            <td>Sushant_uni</td>
+            <td class="bid-amount">$1,650</td>
+            <td>Yesterday, 15:10:42</td>
+            <td>Outbid</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="action-buttons">
+      <button class="btn btn-primary" id="place-bid-btn">Place Bid</button>
+      
+    </div>
+  </div>
+
+  <script>
+    // Set the auction end time based on provided date
+    const auctionEndTime = new Date('June 17, 2025 15:00:00 EST');
+
+    function updateCountdown() {
+      const now = new Date();
+      const timeLeft = auctionEndTime - now;
+
+      const countdownEl = document.getElementById('countdown');
+      const statusEl = document.querySelector('.status-indicator');
+
+      if (timeLeft <= 0) {
+        countdownEl.textContent = "Auction Ended";
+        statusEl.className = 'status-indicator status-ended';
+        statusEl.textContent = 'ENDED';
+        return;
+      }
+
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = 
+        `${String(days).padStart(2, '0')}:${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // Initialize and refresh every second
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // Place Bid Handler
+    document.getElementById('place-bid-btn').addEventListener('click', function () {
+      const currentBid = parseInt(document.querySelector('.current-bid').textContent.replace(/[^0-9]/g, ''));
+      const minBid = currentBid + 50;
+      const userBid = prompt(`Enter your bid (minimum $${minBid}):`, minBid);
+
+      if (userBid !== null) {
+        const bidAmount = parseInt(userBid.replace(/[^0-9]/g, ''));
+        if (isNaN(bidAmount) || bidAmount < minBid) {
+          alert(`Bid must be at least $${minBid}`);
+        } else {
+          alert(`Your bid of $${bidAmount} has been submitted!`);
+          document.querySelector('.current-bid').textContent = `$${bidAmount}`;
+          document.querySelector('.bid-increment').textContent = `Minimum next bid: $${bidAmount + 50}`;
+
+          const now = new Date();
+          const timeString = `Today, ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`;
+
+          const bidHistoryTable = document.querySelector('.bid-table tbody');
+          const newRow = document.createElement('tr');
+          newRow.innerHTML = `
+            <td>You</td>
+            <td class="bid-amount">$${bidAmount}</td>
+            <td>${timeString}</td>
+            <td>Winning</td>
+          `;
+          bidHistoryTable.insertBefore(newRow, bidHistoryTable.firstChild);
+
+          // Set previous winner to 'Outbid'
+          const previousWinnerStatus = bidHistoryTable.querySelector('tr:nth-child(2) td:nth-child(4)');
+          if (previousWinnerStatus) {
+            previousWinnerStatus.textContent = 'Outbid';
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

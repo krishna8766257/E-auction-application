@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Online Enrollment of Corporate/Bidder</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+<body class="bg-gray-100 p-4">
+  <div class="max-w-4xl mx-auto bg-white p-6 shadow-md rounded-md">
+    <h1 class="text-xl font-bold mb-4">Online Enrollment of Corporate/Bidder</h1>
+
+    <!-- Login Section -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="login-id">Login ID *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="login-id" placeholder="Login ID" type="text" />
+        <p class="text-xs text-gray-500 mt-1">Enter email address for login id. eg: abc@nic.com<br>
+          (Care may be taken to enter valid e-mail ID. This information will be kept confidential. The login ID cannot be modified once registered.)</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="correspondence-email">Correspondence Email *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="correspondence-email" placeholder="Correspondence Email" type="email" />
+        <p class="text-xs text-gray-500 mt-1">Correspondence Email ID can be same as your Login ID.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="mobile-no">Mobile No *</label>
+        <div class="flex">
+          <select class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm p-2" id="mobile-no">
+            <option value="">-Select-</option>
+            <option value="+91">+91 (India)</option>
+            <option value="+1">+1 (USA/Canada)</option>
+            <option value="+44">+44 (UK)</option>
+            <option value="+61">+61 (Australia)</option>
+          </select>
+          <input class="mt-1 block w-2/3 border border-gray-300 rounded-md shadow-sm p-2 ml-2" placeholder="Mobile No" type="text" />
+        </div>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-300 my-6"></div>
+
+    <!-- Company Details -->
+    <h2 class="text-lg font-bold mb-4 text-center text-pink-600">Company Details</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="company-name">Company Name *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="company-name" placeholder="Company Name" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="preferential-bidder">Preferential Bidder</label>
+        <div class="flex items-center mt-1">
+          <input class="h-4 w-4 text-pink-600 border-gray-300 rounded" id="preferential-bidder" type="checkbox" />
+          <label class="ml-2 block text-sm text-gray-700" for="preferential-bidder">Yes</label>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="registration-number">Registration Number *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="registration-number" placeholder="Registration Number" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="registered-address">Registered Address *</label>
+        <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="registered-address" placeholder="Registered Address"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="partners-directors">Name of Partners / Directors *</label>
+        <textarea class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="partners-directors" placeholder="Name of Partners / Directors"></textarea>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="bidder-type">BidderType *</label>
+        <div class="flex items-center mt-1">
+          <input class="h-4 w-4 text-pink-600 border-gray-300" id="indian" name="bidder-type" type="radio" />
+          <label class="ml-2 block text-sm text-gray-700" for="indian">Indian</label>
+          <input class="h-4 w-4 text-pink-600 border-gray-300 ml-4" id="foreign" name="bidder-type" type="radio" />
+          <label class="ml-2 block text-sm text-gray-700" for="foreign">Foreign</label>
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="city">City *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="city" placeholder="City" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="state">State *</label>
+        <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="state"></select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="postal-code">Postal Code *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="postal-code" placeholder="Postal Code" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="pan-tan-number">PAN/TAN Number *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="pan-tan-number" placeholder="PAN/TAN NUMBER" type="text" />
+        <p class="text-xs text-gray-500 mt-1">PAN/TAN number must have 10 characters. For eg: AESTG2458A<br>For Bidders who do not have PAN/TAN number may enter TEMP2999ZZ as the PAN/TAN number</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="year">Establishment Year *</label>
+        <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="year"></select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="nature-of-business">Nature of Business *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="nature-of-business" placeholder="Nature of Business" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="legal-status">Legal Status *</label>
+        <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="legal-status">
+          <option value="">-Select-</option>
+          <option>Limited Company</option>
+          <option>Undertaking</option>
+          <option>Jointventure</option>
+          <option>Partnership</option>
+          <option>Others</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="company-category">Company Category *</label>
+        <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="company-category">
+          <option value="">-Select-</option>
+          <option>Micro Unit as per MSME</option>
+          <option>Small Unit as per MSME</option>
+          <option>Medium Unit as per MSME</option>
+          <option>Ancillary Unit</option>
+          <option>Project Affected Person of this Company</option>
+          <option>SSI</option>
+          <option>Others</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-300 my-6"></div>
+
+    <!-- Contact Details -->
+    <h2 class="text-lg font-bold mb-4 text-center text-pink-600">Contact Details</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="contact-title">Title / Contact Name *</label>
+        <select class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="contact-title">
+          <option value="">-Select-</option>
+          <option>Mr.</option>
+          <option>Mrs.</option>
+        </select>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="contact-name" placeholder="Contact Name" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="dob">Date Of Birth (DD/MM/YYYY) *</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="dob" type="date" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="designation">Designation</label>
+        <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2" id="designation" placeholder="Designation" type="text" />
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700" for="phone">Phone</label>
+        <div class="flex">
+          <select class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm p-2" id="phone-code">
+            <option value="">-Select-</option>
+            <option value="+91">+91 (India)</option>
+            <option value="+1">+1 (USA/Canada)</option>
+            <option value="+44">+44 (UK)</option>
+            <option value="+61">+61 (Australia)</option>
+          </select>
+          <input class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm p-2 ml-2" placeholder="STD" type="text" />
+          <input class="mt-1 block w-1/3 border border-gray-300 rounded-md shadow-sm p-2 ml-2" placeholder="Phone Number" type="text" />
+        </div>
+        <p class="text-xs text-gray-500 mt-1">Phone Details eg: +91 044 22272449</p>
+      </div>
+
+      <!-- CAPTCHA -->
+      <div class="col-span-3">
+        <h2 class="text-lg font-bold mb-4 text-center text-pink-600">CAPTCHA VALIDATION</h2>
+        <canvas id="captchaCanvas" class="border border-gray-300 rounded-md mb-2"></canvas>
+        <input type="text" id="captchaInput" class="block w-full border border-gray-300 rounded-md shadow-sm p-2 mb-2" placeholder="Enter CAPTCHA" required>
+        <div class="flex justify-between items-center">
+          <button type="button" id="refreshCaptcha" class="text-sm text-blue-600 hover:underline">Refresh</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-end space-x-4">
+      <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-md">Back</button>
+      <button
+  onclick="window.location.href='http://127.0.0.1:5500/loginpage[1].html';"
+  class="bg-pink-600 text-white px-4 py-2 rounded-md"
+>
+  Submit
+</button>
+    </div>
+  </div>
+
+  <!-- Inline JavaScript -->
+  <script>
+    // Populate State Dropdown
+    const states = ["-Select-", "Andhra Pradesh", "Delhi", "Karnataka", "Maharashtra", "Tamil Nadu", "Haryana", "Himachal Pradesh", "Uttarakhand", "Uttar Pradesh", "Bihar"];
+    const stateSelect = document.getElementById("state");
+    states.forEach(state => {
+      const option = document.createElement("option");
+      option.value = state;
+      option.textContent = state;
+      stateSelect.appendChild(option);
+    });
+
+    // Populate Year Dropdown
+    const yearSelect = document.getElementById("year");
+    const startYear = 2000;
+    const endYear = new Date().getFullYear();
+    for (let year = endYear; year >= startYear; year--) {
+      const option = document.createElement("option");
+      option.value = year;
+      option.textContent = year;
+      yearSelect.appendChild(option);
+    }
+
+    // CAPTCHA Generator
+    function generateCaptcha(length = 6) {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      let captcha = "";
+      for (let i = 0; i < length; i++) {
+        captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return captcha;
+    }
+
+    let currentCaptcha = "";
+    function drawCaptcha() {
+      const canvas = document.getElementById("captchaCanvas");
+      const ctx = canvas.getContext("2d");
+      canvas.width = 200;
+      canvas.height = 50;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      currentCaptcha = generateCaptcha();
+      ctx.font = "24px Arial";
+      ctx.fillStyle = "#333";
+      ctx.fillText(currentCaptcha, 40, 35);
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      drawCaptcha();
+      document.getElementById("refreshCaptcha").addEventListener("click", drawCaptcha);
+      document.querySelector("button.bg-pink-600").addEventListener("click", () => {
+        const userInput = document.getElementById("captchaInput").value.trim();
+        if (userInput === currentCaptcha) {
+          alert("CAPTCHA validated successfully!");
+        } else {
+          alert("CAPTCHA validation failed. Please try again.");
+          drawCaptcha();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
